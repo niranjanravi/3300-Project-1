@@ -9,10 +9,10 @@ var rawData;
 
 var rapperData =
 {
-"Kanye West" : {"nicknames" : ["Kanye","Ye","Yeezy","Louis Vuitton Don","Konman"], "lyrics" : "", "references" : 0},
-"Drake" : {"nicknames" : [], "lyrics" : "", "references": 0},
-"Gucci Mane" : {"nicknames" : [], "lyrics": "", "references" : 0},
-"Lil Wayne" : {"nicknames": ["Birdman","Tuneche","Weezyana","Weezy","Carter","Tunechi"], "lyrics" : "", "references" : 0}
+"Kanye West" : {"nicknames" : ["Kanye","Ye","Yeezy","Louis Vuitton Don","Konman"], "words": 0, "references" : 0},
+"Drake" : {"nicknames" : [], "words" : 0, "references": 0},
+"Gucci Mane" : {"nicknames" : [], "words": 0, "references" : 0},
+"Lil Wayne" : {"nicknames": ["Birdman","Tuneche","Weezyana","Weezy","Carter","Tunechi"], "words" : 0, "references" : 0}
 
 };
 
@@ -22,7 +22,16 @@ d3.csv("songdata.csv", function(data){
 	rawData = data;
 	rawData.forEach(function(element){
 		if(artists.includes(element.artist)){
-			rapperData[element.artist].lyrics += element.text;
+			var rapper = rapperData[element.artist];
+			var words = element.text.split(' ');
+
+			rapper.words += words.length;
+			words.forEach(function(word){
+				if(rapper.nicknames.includes(word) || word == element.artist){
+					rapper.references++;
+				}
+			});
+
 
 			//TODO: Update number of references
 		}
