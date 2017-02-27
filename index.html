@@ -1,43 +1,52 @@
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="http://d3js.org/topojson.v2.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<html>
+
+	<head>
+		<title>Rap Visuals</title>
+
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="http://d3js.org/topojson.v2.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+	</head>
+
+	<body>
+
+		<script>
+
+		var rawData;
+
+		var rapperData =
+		{
+		"Kanye West" : {"nicknames" : ["Kanye","Ye","Yeezy","Louis Vuitton Don","Konman"], "words": 0, "references" : 0},
+		"Drake" : {"nicknames" : ["Drake","Drizzy","Champagne Papi","October's Very Own", "6god"], "words" : 0, "references": 0},
+		"Gucci Mane" : {"nicknames" : ["Gucci"], "words": 0, "references" : 0},
+		"Lil Wayne" : {"nicknames": ["Birdman","Tuneche","Weezyana","Weezy","Carter","Tunechi"], "words" : 0, "references" : 0}
+
+		};
+
+		var artists = ["Kanye West","Drake","Gucci Mane","Lil Wayne"];
+
+		d3.csv("songdata.csv", function(data){
+			rawData = data;
+			rawData.forEach(function(element){
+				if(artists.includes(element.artist)){
+					var rapper = rapperData[element.artist];
+					var words = element.text.split(' ');
+
+					rapper.words += words.length;
+					words.forEach(function(word){
+						if(rapper.nicknames.includes(word) || word == element.artist){
+							rapper.references++;
+						}
+					});
 
 
-<script>
-
-var rawData;
-
-var rapperData =
-{
-"Kanye West" : {"nicknames" : ["Kanye","Ye","Yeezy","Louis Vuitton Don","Konman"], "words": 0, "references" : 0},
-"Drake" : {"nicknames" : [], "words" : 0, "references": 0},
-"Gucci Mane" : {"nicknames" : [], "words": 0, "references" : 0},
-"Lil Wayne" : {"nicknames": ["Birdman","Tuneche","Weezyana","Weezy","Carter","Tunechi"], "words" : 0, "references" : 0}
-
-};
-
-var artists = ["Kanye West","Drake","Gucci Mane","Lil Wayne"];
-
-d3.csv("songdata.csv", function(data){
-	rawData = data;
-	rawData.forEach(function(element){
-		if(artists.includes(element.artist)){
-			var rapper = rapperData[element.artist];
-			var words = element.text.split(' ');
-
-			rapper.words += words.length;
-			words.forEach(function(word){
-				if(rapper.nicknames.includes(word) || word == element.artist){
-					rapper.references++;
+					//TODO: Update number of references
 				}
 			});
+			console.log("woo");
+		});
 
 
-			//TODO: Update number of references
-		}
-	});
-	console.log("woo");
-});
-
-
-</script>
+		</script>
+	</body>
+</html>
