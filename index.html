@@ -1,0 +1,34 @@
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="http://d3js.org/topojson.v2.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script>
+
+var rawData;
+
+var rapperData =
+{
+"Kanye West" : {"nicknames" : ["Kanye","Ye","Yeezy","Louis Vuitton Don","Konman"], "lyrics" : "", "references" : 0},
+"Drake" : {"nicknames" : [], "lyrics" : "", "references": 0},
+"Gucci Mane" : {"nicknames" : [], "lyrics": "", "references" : 0},
+"Lil Wayne" : {"nicknames": ["Birdman","Tuneche","Weezyana","Weezy","Carter","Tunechi"], "lyrics" : "", "references" : 0}
+
+};
+
+var artists = ["Kanye West","Drake","Gucci Mane","Lil Wayne"];
+
+d3.csv("songdata.csv", function(data){
+	rawData = data;
+	rawData.forEach(function(element){
+		if(artists.includes(element.artist)){
+			rapperData[element.artist].lyrics += element.text;
+
+			//TODO: Update number of references
+		}
+	});
+	console.log("woo");
+});
+
+
+</script>
