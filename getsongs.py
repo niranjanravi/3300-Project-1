@@ -5,7 +5,6 @@ def preprocess_corpus(save_as, artist):
 		contents = f.read()
 
 	split = contents.split('"')
-	print split[4]
 
 	for index, song in enumerate(split):
 		if (index % 2 == 1 and artist in song) :
