@@ -3,11 +3,14 @@ import glob
 import os
 datasource = "data/*"
 
-
-bracketRE = r"^\[[\w|\s|:|'|-|\.|\$]+\]" #Handles things like [Kanye], [Outro: x3], etc
-colonRE = r"^[\w|\s|:|'|-|\.|\$]+:" #Handles expressions like 'Gucci Mane:' at the begging of new lines
-parenthesesRE = r"^\([\w|\s|:|'|-| \.| \$ | \?]+\)" #Handles expressions at beginnng of new line like '(Gucci)'
+bracketRE = r"^\[.+\]" #Handles things like [Kanye], [Outro: x3], etc
+colonRE = r"^.+:" #Handles expressions like 'Gucci Mane:' at the begging of new lines
+parenthesesRE = r"^\(.+\)" #Handles expressions at beginnng of new line like '(Gucci)'
 #Does catch some lyrics... but at least putting it at begging of new line minimizes some of that
+
+
+
+
 
 newpath = 'stripped-lyrics/'
 
