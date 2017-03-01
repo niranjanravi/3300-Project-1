@@ -36,6 +36,14 @@
 					var words = element.text.split(' ');
 
 					rapper.words += words.length;
+
+					//I think we need to convert both nicknames and lyrics to all lower case as to account for punctuation 
+
+					//Also while it may be more inefficient, I think it'd be more accurate to check if each line contains each of the nicknames. If we are looking at just the word we could have a problem with two word nicknames like the word being "iceberg" wouldn't return a match if we're looking for "iceberg slim"
+
+					//Also if we are to check per line — what if a nickname is cut between two lines? 
+
+					// -- Charles
 					words.forEach(function(word){
 						if(rapper.nicknames.includes(word) || word == element.artist){
 							rapper.references++;
