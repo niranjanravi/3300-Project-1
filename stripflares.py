@@ -22,7 +22,7 @@ for filename in glob.iglob(datasource):
 
 	f.close()
 	lyrics = re.sub(bracketRE, "", lyrics, flags = re.MULTILINE)
-	lyrics = re.sub(colonRE, "", lyrics, flags = re.MULTILINE)
+	# lyrics = re.sub(colonRE, "", lyrics, flags = re.MULTILINE)
 	lyrics = re.sub(parenthesesRE, "", lyrics, flags = re.MULTILINE)
 
 	newfilepath = newpath + "stripped-" + name
