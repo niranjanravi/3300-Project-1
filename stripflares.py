@@ -8,10 +8,6 @@ colonRE = r"^.+:" #Handles expressions like 'Gucci Mane:' at the begging of new 
 parenthesesRE = r"^\(.+\)" #Handles expressions at beginnng of new line like '(Gucci)'
 #Does catch some lyrics... but at least putting it at begging of new line minimizes some of that
 
-
-
-
-
 newpath = 'stripped-lyrics/'
 
 if not os.path.exists(newpath):
