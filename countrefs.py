@@ -6,7 +6,7 @@ import json
 
 datasource = "stripped-lyrics/*"
 nicknames = {
-"2_chainz" : [],
+"2_chainz" : ["tity boi", "titty boi", "2chainz", "2 chainz"],
 "50_cent": ["50 Cent", "50", "Fifty","Fiddy","Interscope","Boo Boo"],
 "chief_keef": [],
 "desiigner" : [],
