@@ -10,18 +10,25 @@
 	</head>
 
 	<body>
-		<svg height="600" width="1000">
+		<svg height="600" width="1000" id="svg1">
+
+		</svg>
+
+		<br>
+
+		<svg height="300" width="500" id="svg2">
 
 		</svg>
 
 		<script>
 
-		var svg = d3.select("svg");
+		var svg = d3.select("#svg1");
 		var fileData;
 
 		var a = {songs: 9, sales: 0.3};
+		var nameFreq = [];
 
-		var rapperData = 
+		var rapperData =
 		[
 			{name: "fetty_wap" , songs: 31, sales: 0.3},
 			{name: "lil_wayne" , songs: 258, sales: 13.4},
@@ -52,7 +59,11 @@
 			rapperData.forEach(function(rapper){
 				rapper.count = fileData[rapper.name].count;
 				rapper.totalwords = fileData[rapper.name].totalwords;
+
+				var freq = rapper.totalwords/rapper.count;
+				nameFreq.push({'freq' : freq});
 			});
+			console.log(nameFreq);
 			console.log("file data completely loaded");
 
 			var songExtent = d3.extent(rapperData, function(d){ return d.songs; });
@@ -81,8 +92,23 @@
 				.attr("y", Number(circle.attr("cy")) + 2*Number(circle.attr("r")))
 				.attr("text-anchor", "middle")
 				.text(capitalize_each_word(rapper.name));*/
+
 			});
 		});
+
+		var svg2 = d3.select('#svg2');
+
+
+		var freqExtent = d3.extent(nameFreq, function(d) { console.log(d); return d.freq; } );
+		var frequencies = nameFreq.map(function(d) {return d});
+
+		var xScale = d3.scaleLinear()
+		.domain(freqExtent)
+		.range([0,100]);
+
+		var yScale = d3.scaleLinear()
+		.domain([])
+		.range([]);
 
 
 		</script>
