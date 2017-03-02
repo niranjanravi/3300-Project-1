@@ -68,49 +68,6 @@
 			});
 		});
 
-		/*var rapperData =
-		{
-		"Kanye West" : {"nicknames" : ["Kanye","Ye","Yeezy","Louis Vuitton Don","Konman"], "words": 0, "references" : 0},
-		"Drake" : {"nicknames" : ["Drake","Drizzy","Champagne Papi","October's Very Own", "6god"], "words" : 0, "references": 0},
-		"Gucci Mane" : {"nicknames" : ["Gucci", "Big Guwop","Mr. Zone 6"], "words": 0, "references" : 0},
-		"Lil Wayne" : {"nicknames": ["Birdman","Tuneche","Weezyana","Weezy","Carter","Tunechi"], "words" : 0, "references" : 0},
-		"50 Cent" : {"nicknames": ["50 Cent", "Fifty","Fiddy","Interscope","Boo Boo"], "words" : 0, "references" : 0},
-		"Future" : {"nicknames": ["Future","Hendrix"], "words" : 0, "references" : 0},
-		"Kendrick Lamar" : {"nicknames": ["Kendrick", "K-Dot"], "words" : 0, "references" : 0},
-		"Jay Z" : {"nicknames": ["Jay","Hov","Jigga","S-dot","Hova","Iceberg Slim","Jazzy"], "words" : 0, "references" : 0}
-		};
-
-		var artists = ["Kanye West","Drake","Gucci Mane","Lil Wayne","50 Cent","Future","Kendrick Lamar","Jay Z"];
-
-		d3.csv("songdata.csv", function(data){
-			rawData = data;
-			rawData.forEach(function(element){
-				if(artists.includes(element.artist)){
-					var rapper = rapperData[element.artist];
-					var words = element.text.split(' ');
-
-					rapper.words += words.length;
-
-					//I think we need to convert both nicknames and lyrics to all lower case as to account for punctuation 
-
-					//Also while it may be more inefficient, I think it'd be more accurate to check if each line contains each of the nicknames. If we are looking at just the word we could have a problem with two word nicknames like the word being "iceberg" wouldn't return a match if we're looking for "iceberg slim"
-
-					//Also if we are to check per line — what if a nickname is cut between two lines? 
-
-					// -- Charles
-					words.forEach(function(word){
-						if(rapper.nicknames.includes(word) || word == element.artist){
-							rapper.references++;
-						}
-					});
-
-
-					//TODO: Update number of references
-				}
-			});
-			console.log("woo");
-		});*/
-
 
 		</script>
 	</body>
