@@ -10,11 +10,35 @@
 
 	<body>
 
+		<svg height="400" width="400">
+
+		</svg>
+
 		<script>
 
+		var svg = d3.select("svg");
 		var rawData;
 
-		var rapperData =
+		var axisData = 
+		{
+			fetty_wap : {songs: 9, sales: 0.3}
+			lil_wayne : {songs: 44, sales: 13.4}
+			2_chainz : {songs: 16, sales: 0.9}
+			50_cent : {songs: 26, sales: 15.7}
+			desiigner : {songs: 4, sales: .02}
+			kanye : {songs: 47, sales: 13.5}
+			future : {songs: 23, sales: 0.8}
+			chief_keef : {songs: 5, sales: 0.2}
+			drake : {songs: 41, sales: 7.4}
+			gucci_mane : {songs: 55, sales: 1.1}
+		};
+
+		d3.json("rappers.json",function(data){
+			console.log("JSON data loaded");
+			rawData = data;
+		});
+
+		/*var rapperData =
 		{
 		"Kanye West" : {"nicknames" : ["Kanye","Ye","Yeezy","Louis Vuitton Don","Konman"], "words": 0, "references" : 0},
 		"Drake" : {"nicknames" : ["Drake","Drizzy","Champagne Papi","October's Very Own", "6god"], "words" : 0, "references": 0},
@@ -55,7 +79,7 @@
 				}
 			});
 			console.log("woo");
-		});
+		});*/
 
 
 		</script>
