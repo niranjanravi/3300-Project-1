@@ -9,8 +9,12 @@
 
 	</head>
 
+	
 	<body>
 		<svg height="600" width="1000">
+			<defs>
+
+			</defs>
 
 		</svg>
 
@@ -19,7 +23,6 @@
 		var svg = d3.select("svg");
 		var fileData;
 
-		var a = {songs: 9, sales: 0.3};
 
 		var rapperData = 
 		[
@@ -61,7 +64,7 @@
 
 			var songScale = d3.scaleLinear().domain([0, songExtent[1]]).range([20, svg.attr("width") - 20]);
 			var saleScale = d3.scaleSqrt().domain([0, saleExtent[1]]).range([svg.attr("height") - 20, 20]);
-			var countScale = d3.scaleLinear().domain(countExtent).range([5,20]);
+			var countScale = d3.scaleLinear().domain(countExtent).range([15,50]);
 
 			var songAxis = d3.axisBottom(songScale);
 			var saleAxis = d3.axisLeft(saleScale);
@@ -70,11 +73,29 @@
 			plot.append("g").attr("transform","translate(0," + (svg.attr("height") - 20) +")").call(songAxis);
 			plot.append("g").attr("transform","translate(20,0)").call(saleAxis);
 
-			rapperData.forEach(function(rapper){
+			rapperData.forEach(function(rapper, i){
+				
+
+				d3.select("defs")
+				.append("pattern")
+				.attr("id","image"+i)
+				.attr("x","0%").attr("y","0%")
+				.attr("patternUnit","userSpaceOnUse")
+				.attr("height","100%")
+				.attr("width","100%")
+				.attr("viewbox", "0 0 270 270")
+				.append("image")
+				.attr("x","0%")
+				.attr("y","0%")
+				.attr("height", "270")
+				.attr("width", "270")
+				.attr("xlink:href", "img/"+rapper.name + ".jpg");
+
 				var circle = svg.append("circle")
 				.attr("cx", songScale(rapper.songs))
 				.attr("cy", saleScale(rapper.sales))
 				.attr("r", countScale(rapper.count/rapper.totalwords));
+				//.attr("fill", "url(#image"+i+")");
 
 				/*svg.append("text")
 				.attr("x", circle.attr("cx"))
