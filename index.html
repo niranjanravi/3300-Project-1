@@ -10,7 +10,7 @@
 
 	<body>
 
-		<svg height="400" width="400">
+		<svg height="600" width="600">
 
 		</svg>
 
@@ -35,6 +35,7 @@
 			{name: "gucci_mane" ,songs: 55, sales: 1.1}
 		];
 
+
 		d3.json("rappers.json",function(data){
 			console.log("JSON data loaded");
 			fileData = data;
@@ -46,8 +47,25 @@
 
 			var songExtent = d3.extent(rapperData, function(d){ return d.songs; });
 			var saleExtent = d3.extent(rapperData, function(d){ return d.sales; });
+			var countExtent = d3.extent(rapperData, function(d){ return d.count/d.totalwords; });
 
+			var songScale = d3.scaleLinear().domain([0, songExtent[1]]).range([20, svg.attr("width") - 20]);
+			var saleScale = d3.scaleSqrt().domain([0, saleExtent[1]]).range([svg.attr("height") - 20, 20]);
+			var countScale = d3.scaleLinear().domain(countExtent).range([5,20]);
 
+			var songAxis = d3.axisBottom(songScale);
+			var saleAxis = d3.axisLeft(saleScale);
+
+			var plot = svg.append("g");
+			plot.append("g").attr("transform","translate(0," + (svg.attr("height") - 20) +")").call(songAxis);
+			plot.append("g").attr("transform","translate(20,0)").call(saleAxis);
+
+			rapperData.forEach(function(rapper){
+				svg.append("circle")
+				.attr("cx", songScale(rapper.songs))
+				.attr("cy", saleScale(rapper.sales))
+				.attr("r", countScale(rapper.count/rapper.totalwords));
+			});
 		});
 
 		/*var rapperData =
