@@ -3,6 +3,11 @@ import glob
 import os
 import json
 
+"""
+COUNTING METRIC: Find all references to any of rapper's nicknames.
+Rapper's reference count is the top 10 highest counts per nickname.
+"""
+
 
 datasource = "stripped-lyrics/*"
 nicknames = {
@@ -50,14 +55,23 @@ for filename in glob.iglob(datasource):
 	print(name)
 	print("==================================")
 
+	topCounts = []
 	for n in nicknames[name]:
 		regex = r"" + n.lower()
 		#Effectively remove the word so doesn get double counted by
 		#a later nickname like in the example of 'kanye' and 'ye'
 		lyrics, count = re.subn(regex, "", lyrics)
-		referenceData[name]["count"] += count
+		topCounts += [count]
 		print("'{}' has count of {}".format(n, count))
 	f.close()
+
+	topCounts = sorted(topCounts, reverse = True)
+
+	if len(topCounts) > 10:
+		topCounts = topCounts[:10]
+
+	for c in topCounts:
+		referenceData[name]["count"] += c
 
 if os.path.exists("rappers.json"):
 		os.remove("rappers.json")
