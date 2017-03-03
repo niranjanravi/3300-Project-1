@@ -163,11 +163,18 @@
 				.attr("stroke", "black")
 				.attr("stroke-width", 15);
 				plot2.append("text")
-				.attr("stroke", "yellow")
+				.attr("stroke", "white")
 				.attr("font-size", 8)
-				.attr("x",xScale(10))
+				.attr("x",xScale(20))
 				.attr("y",yScale(i))
 				.text(capitalize_each_word(d.name).toLocaleUpperCase());
+				plot2.append("text")
+				.attr("stroke", "white")
+				.attr("font-size", 8)
+				.attr("text-anchor", "middle")
+				.attr("x",xScale(- 50))
+				.attr("y",yScale(i))
+				.text(Math.round(d.freq));
 			});
 			plot2.append("line")
 			.attr("x1", xScale(0))
