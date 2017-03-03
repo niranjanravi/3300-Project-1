@@ -18,7 +18,7 @@
 
 		<br>
 
-		<svg height="300" width="500" id="svg2">
+		<svg height="300" width="1000" id="svg2">
 
 		</svg>
 
@@ -63,7 +63,7 @@
 				rapper.totalwords = fileData[rapper.name].totalwords;
 
 				var freq = rapper.totalwords/rapper.count;
-				nameFreq.push({'freq' : freq});
+				nameFreq.push({'name' : rapper.name ,'freq' : freq});
 			});
 			console.log(nameFreq);
 			console.log("file data completely loaded");
@@ -113,22 +113,74 @@
 				.attr("text-anchor", "middle")
 				.text(capitalize_each_word(rapper.name));*/
 
+
+				//Second Graph
+
+					});
+
+			var svg2 = d3.select('#svg2');
+
+
+			var freqExtent = d3.extent(nameFreq, function(d){return d.freq;});
+
+
+			var frequencies = nameFreq.map(function(d) {return d});
+
+			var xScale = d3.scaleLinear()
+			.domain([0, freqExtent[1]])
+			.range([0,500]);
+
+			var yScale = d3.scaleLinear()
+			.domain([10,0])
+			.range([200, 10]);
+
+			nameFreq.sort(function(a,b){
+				return a.freq - b.freq;
 			});
-		});
 
-		var svg2 = d3.select('#svg2');
+			var ticks = [];
+			nameFreq.forEach(function(d){
+				ticks.push(capitalize_each_word(d.name));
+			});
+
+			var xAxis = d3.axisBottom(xScale);
+			var yAxis = d3.axisLeft(yScale)
+			.tickFormat(function(d,i){
+				return ticks[10 - i];
+			});
+
+			var plot2 = svg2.append("g").attr("transform", "translate(500, 50)");
+
+			plot2.append("g").attr("transform", "translate(0, 200)").call(xAxis);
+			// plot2.append("g").attr("transform", "translate(0, 0)").call(yAxis);
+
+			nameFreq.forEach(function(d, i){
+				plot2.append("line")
+				.attr("x1", xScale(-d.freq))
+				.attr("x2", xScale(d.freq))
+				.attr("y1", yScale(i))
+				.attr("y2", yScale(i))
+				.attr("stroke", "black")
+				.attr("stroke-width", 15);
+				plot2.append("text")
+				.attr("stroke", "yellow")
+				.attr("font-size", 8)
+				.attr("x",xScale(10))
+				.attr("y",yScale(i))
+				.text(capitalize_each_word(d.name).toLocaleUpperCase());
+			});
+			plot2.append("line")
+			.attr("x1", xScale(0))
+			.attr("x2", xScale(0))
+			.attr("y1", yScale(-1))
+			.attr("y2", yScale(10))
+			.attr("stroke", "white")
+			.attr("stroke-width", 3);
 
 
-		var freqExtent = d3.extent(nameFreq, function(d) { console.log(d); return d.freq; } );
-		var frequencies = nameFreq.map(function(d) {return d});
 
-		var xScale = d3.scaleLinear()
-		.domain(freqExtent)
-		.range([0,100]);
 
-		var yScale = d3.scaleLinear()
-		.domain([])
-		.range([]);
+	});
 
 
 		</script>
