@@ -6,21 +6,143 @@
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="http://d3js.org/topojson.v2.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700i" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900i" rel="stylesheet">
 
 	</head>
 
 
 	<body>
 
-		<svg height="600" width="1000" id="svg1">
+		<style>
 
-		</svg>
+		*{
+			padding: 0; /** normalize */
+			margin:  0; /** normalize */
+		}
 
-		<br>
+		a{
+			color: black;
+		}
 
-		<svg height="300" width="1000" id="svg2">
+		h3,h4{
+			font-weight: 400;
+			margin-top: 10px;
+			font-family: 'Open Sans', sans-serif;
+		}
 
-		</svg>
+		svg{
+			display: block;
+			margin: 0 auto;
+		}
+
+		.header{
+			padding-top: 150px;
+			height: 450px;
+			width: 100%;
+			text-align: center;
+		}
+
+		.header h1{
+			font-family: 'Playfair Display', serif;
+			font-weight: 900;
+			font-style: italic;
+			font-size: 96px;
+			margin-bottom: 20px;
+		}
+
+		.text{
+			background-color: #F7F7F7;
+			text-align: justify;;
+			padding: 50px 0px 30px 0px;
+		}
+
+		.text p{
+			width: 50%;
+			margin: 0px auto 20px auto;
+			font-size: 16px;
+			font-family: 'Playfair Display', serif;
+			line-height: 24px;
+		}
+
+		.viz{
+			padding: 50px 0;
+			background-color: #EAEAEA;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		.footer{
+			padding: 20px 0;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		.footer p{
+			color: #232323;
+			font-size: 12px;
+			font-weight: 600;
+			text-align: center;
+		}
+
+		</style>
+
+		<div class="header">
+
+			<h1>
+				Rap's <br>
+				Largest Ego
+			</h1>
+
+			<h3>Just how much does Kanye love Kanye?</h3>
+
+			<h4>By <a href="https://github.com/niranjanravi/3300-Project-1">Charles, Michael and Niranjan</a></h4>
+
+		</div>
+
+		<div class="text" id="t1">
+			<p> For decades, rap has been about the ego;
+		Lyrics have centered around money, fame, and other measures of success. (Write
+some other stuff idk yet.) In popular culture, Kayne West is notorious for his
+inflated ego. He has been quoted comparing himself to god, and his interruption
+at the Grammy's was one of many examples of his "im better than you" worldview. </p>
+
+			<p>It is obvious that kanye has an ego, but is he the only one? We decided
+			to collected some data and decide once and for all who has the biggest ego
+			in rap. We started by creating a corpus of lyrics from 10 of this years
+			most popular rappers.</p>
+
+</div>
+
+
+		<div class="viz" id="v1">
+			<svg height="600" width="1000" id="svg1"></svg>
+		</div>
+
+		<div class="text" id="t2">
+			<p>The graph above shows some interesting facts.
+		There is a nice linear trend between the amount of songs an artist has put
+		out and the amount of money earned. This trend tells us that for the most
+		part, and artist makes a consistent amount of money. For real I am not sure
+		what to write in here, but we have time. I am mostly just trying to see how
+		it will look one we actually fill it out with real text.</p>
+
+		<p>
+			The size of the heads corrospond to the "ego score" of each artist. This metric was determined by the amount of self-references found in the lyrics of each artist.
+			We will be writing more about this, but again I am just trying to get a feel for how it looks with text so I can change the styling appropriately!!
+		</p>
+	</div>
+
+		<div class="viz" id="v2">
+			<svg height="300" width="1000" id="svg2"></svg>
+		</div>
+
+		<div class="text" id="t3">
+			<p>I just love filler text</p>
+			<p> ...</p>
+		</div>
+
+		<div class="footer">
+			<p>A CS/INFO 3300 Project. Read the full PDF report <a href="#">here.</a></p>
+		</div>
 
 		<script>
 
