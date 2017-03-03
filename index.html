@@ -18,7 +18,7 @@
 
 		<br>
 
-		<svg height="300" width="1000" id="svg2">
+		<svg height="400" width="1000" id="svg2">
 
 		</svg>
 
@@ -126,7 +126,7 @@
 
 			var yScale = d3.scaleLinear()
 			.domain([10,0])
-			.range([200, 10]);
+			.range([300, 10]);
 
 			nameFreq.sort(function(a,b){
 				return a.freq - b.freq;
@@ -145,7 +145,7 @@
 
 			var plot2 = svg2.append("g").attr("transform", "translate(500, 50)");
 
-			plot2.append("g").attr("transform", "translate(0, 200)").call(xAxis);
+			// plot2.append("g").attr("transform", "translate(0, 200)").call(xAxis);
 			// plot2.append("g").attr("transform", "translate(0, 0)").call(yAxis);
 
 			nameFreq.forEach(function(d, i){
@@ -155,16 +155,16 @@
 				.attr("y1", yScale(i))
 				.attr("y2", yScale(i))
 				.attr("stroke", "black")
-				.attr("stroke-width", 15);
+				.attr("stroke-width", 25);
 				plot2.append("text")
-				.attr("stroke", "white")
-				.attr("font-size", 8)
+				.attr("stroke", "gold")
+				.attr("font-size", 14)
 				.attr("x",xScale(20))
 				.attr("y",yScale(i))
 				.text(capitalize_each_word(d.name).toLocaleUpperCase());
 				plot2.append("text")
 				.attr("stroke", "white")
-				.attr("font-size", 8)
+				.attr("font-size", 14)
 				.attr("text-anchor", "middle")
 				.attr("x",xScale(- 50))
 				.attr("y",yScale(i))
@@ -178,6 +178,18 @@
 			.attr("stroke", "white")
 			.attr("stroke-width", 3);
 
+			plot2.append("line")
+			.attr("x1", xScale(0))
+			.attr("x2", 470)
+			.attr("y1", yScale(10.2))
+			.attr("y2", yScale(10.2))
+			.attr("stroke", "gold")
+			.attr("stroke-width", 5);
+
+			plot2.append("path")
+			.attr("d", "M 500, 305.8 L 460, 295.8 460, 315.8 500, 305.8 Z")
+			.attr("fill", "gold")
+			.attr("stroke", "gold");
 
 
 
