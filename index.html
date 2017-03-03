@@ -9,7 +9,7 @@
 
 	</head>
 
-	
+
 	<body>
 
 		<svg height="600" width="1000" id="svg1">
@@ -23,6 +23,8 @@
 		</svg>
 
 		<script>
+
+		var faces = ["fetty-wap.png","wayne.png","2-chainz.png","50.png","desiigner.png","kanye.png","future.png","keef.png", "drake.png","gucci.png"];
 
 		var svg = d3.select("#svg1");
 		var fileData;
@@ -84,27 +86,19 @@
 			plot.append("g").attr("transform","translate(20,0)").call(saleAxis);
 
 			rapperData.forEach(function(rapper, i){
-				
 
-				d3.select("defs")
-				.append("pattern")
-				.attr("id","image"+i)
-				.attr("x","0%").attr("y","0%")
-				.attr("patternUnit","userSpaceOnUse")
-				.attr("height","100%")
-				.attr("width","100%")
-				.attr("viewbox", "0 0 270 270")
-				.append("image")
-				.attr("x","0%")
-				.attr("y","0%")
-				.attr("height", "270")
-				.attr("width", "270")
-				.attr("xlink:href", "img/"+rapper.name + ".jpg");
+				svg.append('image')
+				.attr("xlink:href", "facesbw/"+faces[i])
+				.attr('x', songScale(rapper.songs))
+				.attr('y', saleScale(rapper.sales))
+				.attr('height', countScale(2*rapper.count/rapper.totalwords))
+				.attr('width', countScale(2*rapper.count/rapper.totalwords));
 
-				var circle = svg.append("circle")
-				.attr("cx", songScale(rapper.songs))
-				.attr("cy", saleScale(rapper.sales))
-				.attr("r", countScale(rapper.count/rapper.totalwords));
+
+				// var circle = svg.append("circle")
+				// .attr("cx", songScale(rapper.songs))
+				// .attr("cy", saleScale(rapper.sales))
+				// .attr("r", countScale(rapper.count/rapper.totalwords));
 				//.attr("fill", "url(#image"+i+")");
 
 				/*svg.append("text")
