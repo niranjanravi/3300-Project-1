@@ -132,11 +132,11 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 	</div>
 
 		<div class="viz" id="v2">
-			<svg height="300" width="1000" id="svg2"></svg>
+			<svg height="500" width="1000" id="svg2"></svg>
 		</div>
 
 		<div class="text" id="t3">
-			<p>I just love filler text</p>
+			<p>some chill filler text</p>
 			<p> ...</p>
 		</div>
 
@@ -146,7 +146,7 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 
 		<script>
 
-		var faces = ["fetty-wap.png","wayne.png","2-chainz.png","50.png","desiigner.png","kanye.png","future.png","keef.png", "drake.png","gucci.png"];
+		var faces = ["fetty-wap.png","wayne.png","2-chainz.png","502.png","desiigner.png","kanye.png","future.png","keef.png", "drake.png","gucci.png"];
 
 		var svg = d3.select("#svg1");
 		var fileData;
@@ -180,25 +180,34 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 
 
 		d3.json("rappers.json",function(data){
+
 			console.log("JSON data loaded");
 			fileData = data;
+
 			rapperData.forEach(function(rapper){
 				rapper.count = fileData[rapper.name].count;
 				rapper.totalwords = fileData[rapper.name].totalwords;
-
 				var freq = rapper.totalwords/rapper.count;
 				nameFreq.push({'name' : rapper.name ,'freq' : freq});
 			});
-			console.log(nameFreq);
-			console.log("file data completely loaded");
 
 			var songExtent = d3.extent(rapperData, function(d){ return d.songs; });
 			var saleExtent = d3.extent(rapperData, function(d){ return d.sales; });
 			var countExtent = d3.extent(rapperData, function(d){ return d.count/d.totalwords; });
 
-			var songScale = d3.scaleLinear().domain([0, songExtent[1]]).range([20, svg.attr("width") - 20]);
-			var saleScale = d3.scaleSqrt().domain([0, saleExtent[1]]).range([svg.attr("height") - 20, 20]);
-			var countScale = d3.scaleLinear().domain(countExtent).range([15,50]);
+
+			var songScale = d3.scaleLinear()
+			.domain([0, songExtent[1]])
+			.range([20, svg.attr("width") - 20]);
+
+			var saleScale = d3.scaleSqrt()
+			.domain([0, saleExtent[1]])
+			.range([svg.attr("height") - 20, 120]);
+
+			var countScale = d3.scaleLinear()
+			.domain(countExtent)
+			.range([15,50]);
+
 
 			var songAxis = d3.axisBottom(songScale);
 			var saleAxis = d3.axisLeft(saleScale);
@@ -207,39 +216,26 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 			plot.append("g").attr("transform","translate(0," + (svg.attr("height") - 20) +")").call(songAxis);
 			plot.append("g").attr("transform","translate(20,0)").call(saleAxis);
 
-			rapperData.forEach(function(rapper, i){
+			// is the sale in millions of dollars?
+			plot.append('text')
+			.attr("transform","translate(0," + (svg.attr("height") - 200) +")rotate(90)")
+			// .attr("transform","rotate(270,0,150)")
+			.text("Sales by Millions");
 
+			rapperData.forEach(function(rapper, i){
+				var size = countScale(3*rapper.count/rapper.totalwords);
 				svg.append('image')
 				.attr("xlink:href", "facesbw/"+faces[i])
-				.attr('x', songScale(rapper.songs))
-				.attr('y', saleScale(rapper.sales))
-				.attr('height', countScale(2*rapper.count/rapper.totalwords))
-				.attr('width', countScale(2*rapper.count/rapper.totalwords));
-
-
-				// var circle = svg.append("circle")
-				// .attr("cx", songScale(rapper.songs))
-				// .attr("cy", saleScale(rapper.sales))
-				// .attr("r", countScale(rapper.count/rapper.totalwords));
-				//.attr("fill", "url(#image"+i+")");
-
-				/*svg.append("text")
-				.attr("x", circle.attr("cx"))
-				.attr("y", Number(circle.attr("cy")) + 2*Number(circle.attr("r")))
-				.attr("text-anchor", "middle")
-				.text(capitalize_each_word(rapper.name));*/
-
-
-				//Second Graph
-
-					});
+				.attr('x', songScale(rapper.songs)-size)
+				.attr('y', saleScale(rapper.sales)-size)
+				.attr('height', size)
+				.attr('width', size);
+			});
 
 			var svg2 = d3.select('#svg2');
 
 
 			var freqExtent = d3.extent(nameFreq, function(d){return d.freq;});
-
-
 			var frequencies = nameFreq.map(function(d) {return d});
 
 			var xScale = d3.scaleLinear()
@@ -248,7 +244,7 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 
 			var yScale = d3.scaleLinear()
 			.domain([10,0])
-			.range([200, 10]);
+			.range([400, 10]);
 
 			nameFreq.sort(function(a,b){
 				return a.freq - b.freq;
@@ -267,32 +263,63 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 
 			var plot2 = svg2.append("g").attr("transform", "translate(500, 50)");
 
-			plot2.append("g").attr("transform", "translate(0, 200)").call(xAxis);
+			// plot2.append("g").attr("transform", "translate(0, 200)").call(xAxis);
 			// plot2.append("g").attr("transform", "translate(0, 0)").call(yAxis);
 
 			nameFreq.forEach(function(d, i){
-				plot2.append("line")
-				.attr("x1", xScale(-d.freq))
-				.attr("x2", xScale(d.freq))
-				.attr("y1", yScale(i))
-				.attr("y2", yScale(i))
-				.attr("stroke", "black")
-				.attr("stroke-width", 15);
+				// plot2.append("line")
+				// .attr("x1", xScale(-d.freq))
+				// .attr("x2", xScale(d.freq))
+				// .attr("y1", yScale(i))
+				// .attr("y2", yScale(i))
+				// .attr("stroke", "black")
+				// .attr("stroke-width", 25);
+				plot2.append("rect")
+				.attr("height","30px")
+				.attr("width",2*xScale(d.freq))
+				.attr("stroke","black")
+				.attr("fill", "black")
+				.attr("fill-opacity","0.1")
+				.attr("x",-xScale(d.freq))
+				.attr("y",yScale(i)-20);
+				// artists
 				plot2.append("text")
-				.attr("stroke", "yellow")
-				.attr("font-size", 8)
-				.attr("x",xScale(10))
+				.attr("stroke", "black")
+				.attr("font-size", 10)
 				.attr("y",yScale(i))
-				.text(capitalize_each_word(d.name).toLocaleUpperCase());
+				.attr("text-anchor","middle")
+				.text(capitalize_each_word(d.name).toLocaleUpperCase() + " " + Math.round(d.freq));
+				// numbers
+				// plot2.append("text")
+				// .attr("stroke", "white")
+				// .attr("font-size", 10)
+				// .attr("text-anchor", "middle")
+				// .attr("x",xScale(- 50))
+				// .attr("y",yScale(i))
+				// .text(Math.round(d.freq));
 			});
-			plot2.append("line")
-			.attr("x1", xScale(0))
-			.attr("x2", xScale(0))
-			.attr("y1", yScale(-1))
-			.attr("y2", yScale(10))
-			.attr("stroke", "white")
-			.attr("stroke-width", 3);
+			// white divider line
+			// plot2.append("line")
+			// .attr("x1", 0)
+			// .attr("x2", 0)
+			// .attr("y1", yScale(-1))
+			// .attr("y2", yScale(10))
+			// .attr("stroke", "white")
+			// .attr("stroke-width", 3);
 
+			// yellow arrow
+			// plot2.append("line")
+			// .attr("x1", xScale(0))
+			// .attr("x2", 470)
+			// .attr("y1", yScale(10.2))
+			// .attr("y2", yScale(10.2))
+			// .attr("stroke", "gold")
+			// .attr("stroke-width", 5);
+			//
+			// plot2.append("path")
+			// .attr("d", "M 500, 305.8 L 460, 295.8 460, 315.8 500, 305.8 Z")
+			// .attr("fill", "gold")
+			// .attr("stroke", "gold");
 
 
 
