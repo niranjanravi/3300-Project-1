@@ -34,6 +34,7 @@
 		svg{
 			display: block;
 			margin: 0 auto;
+			border: 1px solid #D75C5D;
 		}
 
 		.header{
@@ -178,6 +179,7 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 			return words.join(" ");
 		}
 
+		var egoScale;
 
 		d3.json("rappers.json",function(data){
 
@@ -195,42 +197,75 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 			var saleExtent = d3.extent(rapperData, function(d){ return d.sales; });
 			var countExtent = d3.extent(rapperData, function(d){ return d.count/d.totalwords; });
 
-
 			var songScale = d3.scaleLinear()
-			.domain([0, songExtent[1]])
-			.range([20, svg.attr("width") - 20]);
+			.domain([0, (songExtent[1] + .1 * songExtent[1]) ])
+			.range([20, svg.attr("width") - 100]);
 
 			var saleScale = d3.scaleSqrt()
-			.domain([0, saleExtent[1]])
-			.range([svg.attr("height") - 20, 120]);
+			.domain([0, (saleExtent[1] + .2 * saleExtent[1])] )
+			.range([svg.attr("height") - 50, 120]);
 
 			var countScale = d3.scaleLinear()
 			.domain(countExtent)
 			.range([15,50]);
 
+			var medianEgo = .00236;
+			var kanyeEgo = .0102;
+
+			egoScale = d3.scaleLinear()
+			.domain([medianEgo,kanyeEgo])
+			.range([1,5]);
 
 			var songAxis = d3.axisBottom(songScale);
 			var saleAxis = d3.axisLeft(saleScale);
 
 			var plot = svg.append("g");
-			plot.append("g").attr("transform","translate(0," + (svg.attr("height") - 20) +")").call(songAxis);
-			plot.append("g").attr("transform","translate(20,0)").call(saleAxis);
+			plot.attr("transform","translate(50,-40)");
+			plot.append("g").attr("transform","translate(-20, " + (svg.attr("height") - 50)  + ")" ).call(songAxis);
+			plot.append("g").attr("transform","translate(0,0)").call(saleAxis);
+
 
 			// is the sale in millions of dollars?
-			plot.append('text')
-			.attr("transform","translate(0," + (svg.attr("height") - 200) +")rotate(90)")
-			// .attr("transform","rotate(270,0,150)")
-			.text("Sales by Millions");
+			svg.append('text')
+			.attr("transform","translate(20," + (svg.attr("height") - 200) +")rotate(-90)")
+			.text("Sales (Millions)");
+
+			svg.append("text")
+			.attr("transform","translate("+svg.attr("width")/2+"," + (svg.attr("height") -10) +")")
+			.attr("text-anchor","middle")
+			.text("Number of Singles (Lifetime)");
 
 			rapperData.forEach(function(rapper, i){
-				var size = countScale(3*rapper.count/rapper.totalwords);
-				svg.append('image')
+				plot.append('image')
 				.attr("xlink:href", "facesbw/"+faces[i])
-				.attr('x', songScale(rapper.songs)-size)
-				.attr('y', saleScale(rapper.sales)-size)
-				.attr('height', size)
-				.attr('width', size);
+				.attr('x', songScale(rapper.songs)-30)
+				.attr('y', saleScale(rapper.sales)-30)
+				.attr('height', 60)
+				.attr('width', 60);
+
+				plot.append("circle")
+				.attr("cx", songScale(rapper.songs))
+				.attr("cy", saleScale(rapper.sales))
+				.attr("r",egoScale(rapper.count/rapper.totalwords)*30)
+				.style("stroke-dasharray", ("3, 3"))
+				.attr("fill", "none")
+				.attr("stroke", "#D75C5D")
+				.attr("stroke-opacity", 1)
+				.attr("stroke-width", 2);
+
 			});
+
+			// for (var c = 2; c < 7; c=c+2){
+			// 	plot.append("circle")
+			// 	.attr("r",c*10)
+			// 	.attr("cx",songScale(220))
+			// 	.attr("cy",saleScale(3))
+			// 	.attr("fill","none")
+			// 	.attr("stroke", "black")
+			// 	.attr("stroke-width",20)
+			// 	.attr("stroke-opacity",.1*c);
+			// }
+
 
 			var svg2 = d3.select('#svg2');
 
