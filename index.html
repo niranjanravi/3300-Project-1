@@ -34,7 +34,7 @@
 		svg{
 			display: block;
 			margin: 0 auto;
-			border: 1px solid #D75C5D;
+			/*border: 1px solid #D75C5D;*/
 		}
 
 		.header{
@@ -228,11 +228,13 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 			// is the sale in millions of dollars?
 			svg.append('text')
 			.attr("transform","translate(20," + (svg.attr("height") - 200) +")rotate(-90)")
+			.attr("font-weight","700")
 			.text("Sales (Millions)");
 
 			svg.append("text")
 			.attr("transform","translate("+svg.attr("width")/2+"," + (svg.attr("height") -10) +")")
 			.attr("text-anchor","middle")
+			.attr("font-weight","700")
 			.text("Number of Singles (Lifetime)");
 
 			rapperData.forEach(function(rapper, i){
@@ -323,6 +325,7 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 				.attr("font-size", 10)
 				.attr("y",yScale(i))
 				.attr("text-anchor","middle")
+				.attr("letter-spacing","1px")
 				.text(capitalize_each_word(d.name).toLocaleUpperCase() + " " + Math.round(d.freq));
 				// numbers
 				// plot2.append("text")
