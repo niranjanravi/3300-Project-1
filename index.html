@@ -238,22 +238,81 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 			.text("Number of Singles (Lifetime)");
 
 			rapperData.forEach(function(rapper, i){
+
+				var x = songScale(rapper.songs); /* x scale for rapper */
+				var y = saleScale(rapper.sales); /* y scale for rapper */
+
 				plot.append('image')
 				.attr("xlink:href", "facesbw/"+faces[i])
-				.attr('x', songScale(rapper.songs)-30)
-				.attr('y', saleScale(rapper.sales)-30)
+				.attr('x', x-30)
+				.attr('y', y-30)
 				.attr('height', 60)
 				.attr('width', 60);
 
 				plot.append("circle")
-				.attr("cx", songScale(rapper.songs))
-				.attr("cy", saleScale(rapper.sales))
+				.attr("cx", x)
+				.attr("cy", y)
 				.attr("r",egoScale(rapper.count/rapper.totalwords)*30)
 				.style("stroke-dasharray", ("3, 3"))
 				.attr("fill", "none")
 				.attr("stroke", "#D75C5D")
 				.attr("stroke-opacity", 1)
 				.attr("stroke-width", 2);
+
+				if(rapper.name == "kanye" || rapper.name == "drake" || rapper.name == "desiigner"){
+					plot.append("circle")
+					.attr("cx", x)
+					.attr("cy", y)
+					.attr("r",3)
+					.attr("fill","none")
+					.attr("stroke", "#FC354D")
+					.attr("stroke-width",1);
+				}
+
+				if(rapper.name == "kanye") {
+					plot.append("line")
+					.attr("x1", x)
+					.attr("x2", x+120)
+					.attr("y1", y)
+					.attr("y2", y+120)
+					.attr("stroke", "#FC354D")
+					.attr("stroke-width",1);
+
+					plot.append("rect")
+					.attr("x", x+120)
+					.attr("y", y+120)
+					.attr("fill","#FD334D")
+					.attr("height", "30px")
+					.attr("width", "105px");
+
+					plot.append("text")
+					.attr("x",x+125)
+					.attr("y",y+135)
+					.attr("font-size", "10px")
+					.attr("fill", "white")
+					.text("Kanye (Highest Ego)");
+				}
+
+				if(rapper.name == "drake") {
+					plot.append("line")
+					.attr("x1", x)
+					.attr("x2", x-50)
+					.attr("y1", y)
+					.attr("y2", y-70)
+					.attr("stroke", "#FC354D")
+					.attr("stroke-width",1);
+
+				}
+
+				if(rapper.name == "desiigner") {
+					plot.append("line")
+					.attr("x1", x)
+					.attr("x2", x+35)
+					.attr("y1", y)
+					.attr("y2", y-100)
+					.attr("stroke", "#FC354D")
+					.attr("stroke-width",1);
+				}
 
 			});
 
