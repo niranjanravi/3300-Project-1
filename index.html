@@ -282,7 +282,7 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 					.attr("x", x+120)
 					.attr("y", y+120)
 					.attr("fill","#FD334D")
-					.attr("height", "30px")
+					.attr("height", "25px")
 					.attr("width", "105px");
 
 					plot.append("text")
@@ -302,6 +302,20 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 					.attr("stroke", "#FC354D")
 					.attr("stroke-width",1);
 
+					plot.append("rect")
+					.attr("x", x-155)
+					.attr("y", y-70)
+					.attr("fill","#FD334D")
+					.attr("height", "25px")
+					.attr("width", "105px");
+
+					plot.append("text")
+					.attr("x",x-150)
+					.attr("y",y-55)
+					.attr("font-size", "10px")
+					.attr("fill", "white")
+					.text("Drake (Lowest Ego)");
+
 				}
 
 				if(rapper.name == "desiigner") {
@@ -312,6 +326,20 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 					.attr("y2", y-100)
 					.attr("stroke", "#FC354D")
 					.attr("stroke-width",1);
+
+					plot.append("rect")
+					.attr("x", x+35)
+					.attr("y", y-125)
+					.attr("fill","#FD334D")
+					.attr("height", "25px")
+					.attr("width", "110px");
+
+					plot.append("text")
+					.attr("x",x+36)
+					.attr("y",y-110)
+					.attr("font-size", "10px")
+					.attr("fill", "white")
+					.text("Desiigner (Median Ego)");
 				}
 
 			});
