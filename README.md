@@ -1,3 +1,3 @@
-# 3300-Project-1
+# Rap's Biggest Ego
 
 ![EGO](facesbw/kanye.png)
