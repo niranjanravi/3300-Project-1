@@ -7,7 +7,7 @@
 		<script src="http://d3js.org/topojson.v2.min.js"></script>
 		<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700i" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700i" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900i" rel="stylesheet">
 
 	</head>
@@ -247,12 +247,14 @@
 			.attr("font-weight","700")
 			.text("Lifetime Discography");
 
-			
+
 			svg.append("text")
 			.attr("transform","translate(50," + (svg.attr("height") -5) +")")
 			.attr("text-anchor","start")
 			.attr("font-size","12")
 			.attr("stroke", "#FD334D")
+			.attr("opacity", .8)
+			.attr("font-weight", 300)
 			.text("*2 Chainz should belong at the asterisk, but due to graphical constraints, we moved him.");
 
 			rapperData.forEach(function(rapper, i){
@@ -293,7 +295,7 @@
 				.attr("stroke-opacity", 1)
 				.attr("stroke-width", 2);
 
-		
+
 				plot.append("circle")
 				.attr("cx", x)
 				.attr("cy", y)
@@ -302,7 +304,7 @@
 				.attr("stroke", "#FC354D")
 				.attr("stroke-width",1)
 				.attr("opacity",0.5);
-			
+
 
 				if(rapper.name == "kanye") {
 					plot.append("line")
@@ -474,18 +476,16 @@
 			plot2.append("image")
 			.attr("xlink:href", "crown.png")
 			.attr("x", xScale(0) - 25)
-			.attr("y",yScale(0)  - 64)
+			.attr("y",yScale(0)  - 65)
 			.attr("height", 50)
-			.attr("width", 50)
-			.attr("opacity", "1");
+			.attr("width", 50);
 
 			svg2.append("text")
 			.attr("x", 500)
-			.attr("y", 50)
-			.attr("stroke", 10)
-			.attr("font-family", "Playfair Display")
-			.attr("font-style", "italic")
-			.attr("font-size", 56)
+			.attr("y", 20)
+			.attr("font-weight",700)
+			.attr("font-family", "Open Sans")
+			.attr("font-size", 24)
 			.attr("text-anchor", "middle")
 			.text("Words Between Self-References");
 
