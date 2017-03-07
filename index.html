@@ -258,10 +258,12 @@
 			.text("*2 Chainz should belong at the asterisk, but due to graphical constraints, we moved him.");
 
 			//Key
+			var key_x = 230
+			font_sz = 11
 			plot.append("circle")
-				.attr("cx", songScale(260))
-				.attr("cy", saleScale(1.5))
-				.attr("r",100)
+				.attr("cx", songScale(key_x))
+				.attr("cy", saleScale(1.1))
+				.attr("r",75)
 				.attr("fill","none")
 				.style("stroke-dasharray", ("3, 3"))
 				.attr("fill", "none")
@@ -270,12 +272,30 @@
 				.attr("stroke-width", 2);
 
 			plot.append("text")
-				.attr("x", songScale(260))
+				.attr("x", songScale(key_x))
 				.attr("y", saleScale(1.5))
 				.attr("text-anchor", "middle")
-				.text("Size of a rapper's ego")
-				.attr("stroke", "black")
-				.attr("stroke-opacity", 1);
+				.text("Size of a rapper's")
+				.attr("stroke", "#D75C5D")
+				.attr("font-size", font_sz);
+
+			plot.append("text")
+				.attr("x", songScale(key_x))
+				.attr("y", saleScale(1.1))
+				.attr("text-anchor", "middle")
+				.text(" ego in relation")
+				.attr("stroke", "#D75C5D")
+				.attr("font-size", font_sz);
+
+			plot.append("text")
+				.attr("x", songScale(key_x))
+				.attr("y", saleScale(.7))
+				.attr("text-anchor", "middle")
+				.text("to the median ego")
+				.attr("stroke", "#D75C5D")
+				.attr("font-size", font_sz);
+
+				
 
 			rapperData.forEach(function(rapper, i){
 
