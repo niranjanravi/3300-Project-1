@@ -138,7 +138,9 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 		</div>
 
 		<div class="text" id="t3">
-			<p>some chill filler text</p>
+			<p>some chill filler text <br>
+
+			... Yeezus ... [98 words] ... The Louis Vuitton Don ...</p>
 			<p> ...</p>
 		</div>
 
@@ -401,30 +403,15 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 						text.text(text.text()+"*");
 					}
 
-					g.selectAll("rect").attr("width",function(d){ return this.parentNode.getBBox().width + 4;});
+					g.selectAll("rect").attr("width",function(d){ return this.parentNode.getBBox().width + 10;});
 
 					rect.attr("x",x - rect.attr("width")/2);
-					text.attr("x", Number(rect.attr("x")) + 2)
-
-					var translation = rect.attr("width")/2;
-					//g.attr("transform","translate("+translation+",0)");
+					text.attr("x", Number(rect.attr("x")) + 3)
 				}
 
 
 
 			});
-
-			// for (var c = 2; c < 7; c=c+2){
-			// 	plot.append("circle")
-			// 	.attr("r",c*10)
-			// 	.attr("cx",songScale(220))
-			// 	.attr("cy",saleScale(3))
-			// 	.attr("fill","none")
-			// 	.attr("stroke", "black")
-			// 	.attr("stroke-width",20)
-			// 	.attr("stroke-opacity",.1*c);
-			// }
-
 
 			var svg2 = d3.select('#svg2');
 
@@ -455,25 +442,16 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 				return ticks[10 - i];
 			});
 
-			var plot2 = svg2.append("g").attr("transform", "translate(500, 50)");
+			var plot2 = svg2.append("g").attr("transform", "translate(500, 100)");
 
-			// plot2.append("g").attr("transform", "translate(0, 200)").call(xAxis);
-			// plot2.append("g").attr("transform", "translate(0, 0)").call(yAxis);
 
 			nameFreq.forEach(function(d, i){
-				// plot2.append("line")
-				// .attr("x1", xScale(-d.freq))
-				// .attr("x2", xScale(d.freq))
-				// .attr("y1", yScale(i))
-				// .attr("y2", yScale(i))
-				// .attr("stroke", "black")
-				// .attr("stroke-width", 25);
 				plot2.append("rect")
-				.attr("height","30px")
+				.attr("height","36px")
 				.attr("width",2*xScale(d.freq))
-				.attr("stroke","black")
-				.attr("fill", "black")
-				.attr("fill-opacity","0.1")
+				.attr("stroke","#FC354D")
+				.attr("fill", "#FD334D")
+				.attr("fill-opacity",0.1 * (10 - i))
 				.attr("x",-xScale(d.freq))
 				.attr("y",yScale(i)-20);
 				// artists
@@ -484,41 +462,27 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 				.attr("text-anchor","middle")
 				.attr("letter-spacing","1px")
 				.text(capitalize_each_word(d.name).toLocaleUpperCase() + " " + Math.round(d.freq));
-				// numbers
-				// plot2.append("text")
-				// .attr("stroke", "white")
-				// .attr("font-size", 10)
-				// .attr("text-anchor", "middle")
-				// .attr("x",xScale(- 50))
-				// .attr("y",yScale(i))
-				// .text(Math.round(d.freq));
 			});
-			// white divider line
-			// plot2.append("line")
-			// .attr("x1", 0)
-			// .attr("x2", 0)
-			// .attr("y1", yScale(-1))
-			// .attr("y2", yScale(10))
-			// .attr("stroke", "white")
-			// .attr("stroke-width", 3);
 
-			// yellow arrow
-			// plot2.append("line")
-			// .attr("x1", xScale(0))
-			// .attr("x2", 470)
-			// .attr("y1", yScale(10.2))
-			// .attr("y2", yScale(10.2))
-			// .attr("stroke", "gold")
-			// .attr("stroke-width", 5);
-			//
-			// plot2.append("path")
-			// .attr("d", "M 500, 305.8 L 460, 295.8 460, 315.8 500, 305.8 Z")
-			// .attr("fill", "gold")
-			// .attr("stroke", "gold");
+			plot2.append("image")
+			.attr("xlink:href", "crown.png")
+			.attr("x", xScale(0) - 25)
+			.attr("y",yScale(0)  - 64)
+			.attr("height", 50)
+			.attr("width", 50)
+			.attr("opacity", "1");
 
+			svg2.append("text")
+			.attr("x", 500)
+			.attr("y", 50)
+			.attr("stroke", 10)
+			.attr("font-family", "Playfair Display")
+			.attr("font-style", "italic")
+			.attr("font-size", 56)
+			.attr("text-anchor", "middle")
+			.text("Words Between Self-References");
 
-
-	});
+		});
 
 
 		</script>
