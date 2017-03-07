@@ -236,8 +236,6 @@
 			plot.append("g").attr("transform","translate(-20, " + (svg.attr("height") - 50)  + ")" ).call(songAxis);
 			plot.append("g").attr("transform","translate(0,0)").call(saleAxis);
 
-
-			// is the sale in millions of dollars?
 			svg.append('text')
 			.attr("transform","translate(20," + (svg.attr("height") - 200) +")rotate(-90)")
 			.attr("font-weight","700")
@@ -258,6 +256,26 @@
 			.attr("opacity", .8)
 			.attr("font-weight", 300)
 			.text("*2 Chainz should belong at the asterisk, but due to graphical constraints, we moved him.");
+
+			//Key
+			plot.append("circle")
+				.attr("cx", songScale(260))
+				.attr("cy", saleScale(1.5))
+				.attr("r",100)
+				.attr("fill","none")
+				.style("stroke-dasharray", ("3, 3"))
+				.attr("fill", "none")
+				.attr("stroke", "#D75C5D")
+				.attr("stroke-opacity", 1)
+				.attr("stroke-width", 2);
+
+			plot.append("text")
+				.attr("x", songScale(260))
+				.attr("y", saleScale(1.5))
+				.attr("text-anchor", "middle")
+				.text("Size of a rapper's ego")
+				.attr("stroke", "black")
+				.attr("stroke-opacity", 1);
 
 			rapperData.forEach(function(rapper, i){
 
@@ -425,7 +443,6 @@
 			});
 
 			var svg2 = d3.select('#svg2');
-
 
 			var freqExtent = d3.extent(nameFreq, function(d){return d.freq;});
 			var frequencies = nameFreq.map(function(d) {return d});
