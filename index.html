@@ -5,6 +5,7 @@
 
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="http://d3js.org/topojson.v2.min.js"></script>
+		<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700i" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900i" rel="stylesheet">
@@ -115,7 +116,7 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 
 
 		<div class="viz" id="v1">
-			<svg height="600" width="1000" id="svg1"></svg>
+			<svg height="650" width="1000" id="svg1"></svg>
 		</div>
 
 		<div class="text" id="t2">
@@ -229,13 +230,21 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 			svg.append('text')
 			.attr("transform","translate(20," + (svg.attr("height") - 200) +")rotate(-90)")
 			.attr("font-weight","700")
-			.text("Sales (Millions)");
+			.text("Number of Albums Sold (Millions)");
 
 			svg.append("text")
-			.attr("transform","translate("+svg.attr("width")/2+"," + (svg.attr("height") -10) +")")
+			.attr("transform","translate("+svg.attr("width")/2+"," + (svg.attr("height") -25) +")")
 			.attr("text-anchor","middle")
 			.attr("font-weight","700")
-			.text("Number of Singles (Lifetime)");
+			.text("Lifetime Discography");
+
+			
+			svg.append("text")
+			.attr("transform","translate(50," + (svg.attr("height") -5) +")")
+			.attr("text-anchor","start")
+			.attr("font-size","12")
+			.attr("stroke", "#FD334D")
+			.text("*2 Chainz should belong at the asterisk, but due to graphical constraints, we moved him.");
 
 			rapperData.forEach(function(rapper, i){
 
@@ -250,7 +259,8 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 					.attr("y", y + 10)
 					.text("*")
 					.attr("stroke-width", "1")
-					.attr("stroke", "red")
+
+					.attr("stroke", "#FD334D")
 					.attr("stroke-opacity", 1);
 
 					x = x
@@ -275,15 +285,16 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 				.attr("stroke-opacity", 1)
 				.attr("stroke-width", 2);
 
-				if(rapper.name == "kanye" || rapper.name == "drake" || rapper.name == "desiigner"){
-					plot.append("circle")
-					.attr("cx", x)
-					.attr("cy", y)
-					.attr("r",3)
-					.attr("fill","none")
-					.attr("stroke", "#FC354D")
-					.attr("stroke-width",1);
-				}
+		
+				plot.append("circle")
+				.attr("cx", x)
+				.attr("cy", y)
+				.attr("r",3)
+				.attr("fill","none")
+				.attr("stroke", "#FC354D")
+				.attr("stroke-width",1)
+				.attr("opacity",0.5);
+			
 
 				if(rapper.name == "kanye") {
 					plot.append("line")
@@ -292,7 +303,8 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 					.attr("y1", y)
 					.attr("y2", y+120)
 					.attr("stroke", "#FC354D")
-					.attr("stroke-width",1);
+					.attr("stroke-width",1)
+					.attr("opacity",0.5);
 
 					plot.append("rect")
 					.attr("x", x+120)
@@ -309,54 +321,97 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 					.text("Kanye (Highest Ego)");
 				}
 
-				if(rapper.name == "drake") {
+				else if(rapper.name == "drake") {
 					plot.append("line")
 					.attr("x1", x)
-					.attr("x2", x-50)
+					.attr("x2", x+50)
 					.attr("y1", y)
-					.attr("y2", y-70)
+					.attr("y2", y+70)
 					.attr("stroke", "#FC354D")
-					.attr("stroke-width",1);
+					.attr("stroke-width",1)
+					.attr("opacity",0.5);
 
 					plot.append("rect")
-					.attr("x", x-155)
-					.attr("y", y-70)
+					.attr("x", x+50)
+					.attr("y", y+70)
 					.attr("fill","#FD334D")
 					.attr("height", "25px")
 					.attr("width", "105px");
 
 					plot.append("text")
-					.attr("x",x-150)
-					.attr("y",y-55)
+					.attr("x",x+55)
+					.attr("y",y+85)
 					.attr("font-size", "10px")
 					.attr("fill", "white")
 					.text("Drake (Lowest Ego)");
 
 				}
 
-				if(rapper.name == "desiigner") {
+				else if(rapper.name == "desiigner") {
 					plot.append("line")
 					.attr("x1", x)
-					.attr("x2", x+35)
+					.attr("x2", x)
 					.attr("y1", y)
 					.attr("y2", y-100)
 					.attr("stroke", "#FC354D")
-					.attr("stroke-width",1);
+					.attr("stroke-width",1)
+					.attr("opacity",0.5);
 
 					plot.append("rect")
-					.attr("x", x+35)
+					.attr("x", x-55)
 					.attr("y", y-125)
 					.attr("fill","#FD334D")
 					.attr("height", "25px")
 					.attr("width", "110px");
 
 					plot.append("text")
-					.attr("x",x+36)
+					.attr("x",x-54)
 					.attr("y",y-110)
 					.attr("font-size", "10px")
 					.attr("fill", "white")
 					.text("Desiigner (Median Ego)");
 				}
+
+				else{
+					plot.append("line")
+					.attr("x1", x)
+					.attr("x2", x)
+					.attr("y1", y)
+					.attr("y2", y-85)
+					.attr("stroke", "#FC354D")
+					.attr("stroke-width",1)
+					.attr("opacity",0.5);
+
+					var g = plot.append("g");
+
+					var rect = g.append("rect")
+					.attr("x", x-55)
+					.attr("y", y-110)
+					.attr("fill","#FD334D")
+					.attr("height", "25px");
+
+					var text = g.append("text")
+					.attr("x",x-54)
+					.attr("y",y-95)
+					.attr("font-size", "10px")
+					.attr("fill", "white")
+					.attr("text-anchor","start")
+					.text(capitalize_each_word(rapper.name));
+
+					if(rapper.name=="2_chainz"){
+						text.text(text.text()+"*");
+					}
+
+					g.selectAll("rect").attr("width",function(d){ return this.parentNode.getBBox().width + 4;});
+
+					rect.attr("x",x - rect.attr("width")/2);
+					text.attr("x", Number(rect.attr("x")) + 2)
+
+					var translation = rect.attr("width")/2;
+					//g.attr("transform","translate("+translation+",0)");
+				}
+
+
 
 			});
 
@@ -419,38 +474,7 @@ at the Grammy's was one of many examples of his "im better than you" worldview. 
 				.attr("text-anchor","middle")
 				.attr("letter-spacing","1px")
 				.text(capitalize_each_word(d.name).toLocaleUpperCase() + " " + Math.round(d.freq));
-				// numbers
-				// plot2.append("text")
-				// .attr("stroke", "white")
-				// .attr("font-size", 10)
-				// .attr("text-anchor", "middle")
-				// .attr("x",xScale(- 50))
-				// .attr("y",yScale(i))
-				// .text(Math.round(d.freq));
 			});
-			// white divider line
-			// plot2.append("line")
-			// .attr("x1", 0)
-			// .attr("x2", 0)
-			// .attr("y1", yScale(-1))
-			// .attr("y2", yScale(10))
-			// .attr("stroke", "white")
-			// .attr("stroke-width", 3);
-
-			// yellow arrow
-			// plot2.append("line")
-			// .attr("x1", xScale(0))
-			// .attr("x2", 470)
-			// .attr("y1", yScale(10.2))
-			// .attr("y2", yScale(10.2))
-			// .attr("stroke", "gold")
-			// .attr("stroke-width", 5);
-			//
-			// plot2.append("path")
-			// .attr("d", "M 500, 305.8 L 460, 295.8 460, 315.8 500, 305.8 Z")
-			// .attr("fill", "gold")
-			// .attr("stroke", "gold");
-
 
 
 	});
